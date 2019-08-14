@@ -1,0 +1,9 @@
+runtime: go111
+instance_class: F2
+
+includes:
+  - env.yaml
+
+handlers:
+- url: /.*
+  script: auto
