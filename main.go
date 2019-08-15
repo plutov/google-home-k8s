@@ -26,7 +26,12 @@ func main() {
 
 	r := controllers.NewRouter(handler)
 
-	if err := r.Start(":8080"); err != nil {
+	port := os.Getenv("PORT")
+	if len(port) == 0 {
+		port = "8080"
+	}
+
+	if err := r.Start(":" + port); err != nil {
 		r.Logger.Fatalf("shutting down the server: %s", err.Error())
 	}
 }

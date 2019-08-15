@@ -8,7 +8,7 @@ This repository contains Dialogflow configuration as well, which can be imported
 
 Example conversation:
 
-> [you] Hey Google, talk to Kubernetes
+> [you] Hey Google, talk to Kubernetes Manager
 
 > [assistant] Hi, you're currently in the "sandbox" Kubernetes cluster. How can I help you?
 
@@ -51,10 +51,11 @@ API deployed to App Engine is protected by static API Key which should be set in
 
 ## Configure in Dialogflow
 
-1. Create Dialogflow project
-2. Go to Settings -> Export and Import
-3. Import from ZIP (upload [dialogflow.zip](https://raw.githubusercontent.com/plutov/google-home-k8s/master/dialogflow.zip))
-4. Go to Fulfillment
-5. Enable Webhook
-6. Paste URL to API deployed to App Engine
-7. Add Header. Key: `Authorization`, Value: `Bearer API_KEY` (replace `API_KEY` with the value from `env.yaml`)
+1. Go to [Dialogflow Console](https://console.dialogflow.com/)
+2. Select or create a new agent
+3. Go to Settings -> Export and Import
+4. Select **Import From Zip** (import this file [dialogflow.zip](https://raw.githubusercontent.com/plutov/google-home-k8s/master/dialogflow.zip))
+5. Go to Fulfillment
+6. Enable Webhook
+7. Paste URL to API deployed to App Engine
+8. Add Header. Key: `Authorization`, Value: `Bearer API_KEY` (replace `API_KEY` with the value from `env.yaml`)
