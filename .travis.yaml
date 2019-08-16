@@ -3,4 +3,4 @@ go:
   - 1.11
 
 script:
-  - go test -race -v
+  - go test -race -v ./pkg/...
