@@ -44,7 +44,7 @@ func (h *Handler) dialogflowHandler(c echo.Context) error {
 
 	userSession := h.UserSessionManager.GetUserSession(req)
 
-	msg, err := commands.Execute(h.GKEClient, userSession, req)
+	msg, err := commands.Execute(h.KubernetesClient, userSession, req)
 	if err != nil {
 		log.WithError(err).Error("unable to execute command")
 		return c.JSON(http.StatusOK, dialogflow.GenerateWebhookResponse(false, UnknownErrorMsg))

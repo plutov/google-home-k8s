@@ -5,7 +5,8 @@ package dialogflow
 // Request struct
 type Request struct {
 	QueryResult struct {
-		Action string `json:"action"`
+		Parameters map[string]string `json:"parameters"`
+		Action     string            `json:"action"`
 	} `json:"queryResult"`
 	OriginalRequest OriginalRequest `json:"originalDetectIntentRequest"`
 	Session         string          `json:"session"`

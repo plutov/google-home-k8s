@@ -2,12 +2,12 @@ package controllers
 
 import (
 	"github.com/plutov/google-home-k8s/pkg/commands"
-	"github.com/plutov/google-home-k8s/pkg/gke"
+	"github.com/plutov/google-home-k8s/pkg/k8s"
 )
 
 // Handler type
 type Handler struct {
-	GKEClient          *gke.Client
+	KubernetesClient   *k8s.Client
 	UserSessionManager *commands.UserSessionManager
 }
 
@@ -16,7 +16,7 @@ func NewHandler() (*Handler, error) {
 	h := new(Handler)
 
 	var err error
-	h.GKEClient, err = gke.NewClient()
+	h.KubernetesClient, err = k8s.NewClient()
 	if err != nil {
 		return nil, err
 	}

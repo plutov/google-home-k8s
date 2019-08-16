@@ -5,6 +5,7 @@
 *.so
 *.dylib
 google-home-k8s
+build
 
 # Test binary, build with `go test -c`
 *.test

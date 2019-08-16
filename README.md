@@ -2,7 +2,7 @@
 
 # Google Home Action to communicate with Kubernetes
 
-This project allows you to connect your Google Home to your Kubernetes (only GKE for now) cluster and control it via voice commands. It's not a public Google Home Action, since you have to configure GKE access manually.
+This project allows you to connect your Google Home to your Kubernetes cluster and control it via voice commands. It's not a public Google Home Action, since you have to configure Kubernetes access manually for your cluster.
 
 This repository contains Dialogflow configuration as well, which can be imported into existing project. It can be customized later.
 
@@ -10,7 +10,7 @@ Example conversation:
 
 > [you] Hey Google, talk to Kubernetes Manager
 
-> [assistant] Hi, you're currently in the "sandbox" Kubernetes cluster. How can I help you?
+> [assistant] Welcome to Kubernetes Manager. How can I help you?
 
 > [you] Scale statefulset "redis"
 
@@ -28,6 +28,19 @@ Example conversation:
 
 *Contribute to add more voice commands :)*
 
+## Generate kubeconfig
+
+To generate `kubeconfig` you have to install the following tools:
+- `kubectl`
+- `cfssl`
+- `cfssljson`
+
+Then run the following command to generate `build/kubeconfig` file.
+
+```
+./generate-kubeconfig.sh
+```
+
 ## Deploy to Google App Engine
 
 Requirements:
@@ -42,12 +55,6 @@ gcloud app deploy
 Save API URL, you will need to use it later in Dialogflow.
 
 API deployed to App Engine is protected by static API Key which should be set in `env.yaml`. To access API, client should send `Authorization: Bearer ${API_KEY}` header.
-
-## Give App Engine access to GKE
-
-1. Go to IAM
-2. Find GAE service account, which ends with `@appspot.gserviceaccount.com`
-3. Grant `Kubernetes Engine Developer` role
 
 ## Configure in Dialogflow
 
