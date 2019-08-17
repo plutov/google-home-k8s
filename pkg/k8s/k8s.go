@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	log "github.com/sirupsen/logrus"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
@@ -64,6 +65,7 @@ func (c *Client) FindResourceByName(resourceType string, resourceName string) (*
 	}
 
 	if err != nil {
+		log.WithError(err).Error("unable to get list of resources")
 		return nil, notFoundErr
 	}
 
@@ -75,6 +77,46 @@ func (c *Client) FindResourceByName(resourceType string, resourceName string) (*
 	}
 
 	return nil, notFoundErr
+}
+
+// ScaleResource .
+func (c *Client) ScaleResource(resourceType string, resourceName string, replicas int32) error {
+	notFoundErr := fmt.Errorf("%s %s not found", resourceType, resourceName)
+
+	switch resourceType {
+	case ResourceTypeDeployment:
+		client := c.apiClient.AppsV1().Deployments(os.Getenv("NAMESPACE"))
+		res, err := client.Get(resourceName, metav1.GetOptions{})
+		if err != nil {
+			return notFoundErr
+		}
+
+		res.Spec.Replicas = &replicas
+		_, updateErr := client.Update(res)
+		return updateErr
+	case ResourceTypeStatefulSet:
+		client := c.apiClient.AppsV1().StatefulSets(os.Getenv("NAMESPACE"))
+		res, err := client.Get(resourceName, metav1.GetOptions{})
+		if err != nil {
+			return notFoundErr
+		}
+
+		res.Spec.Replicas = &replicas
+		_, updateErr := client.Update(res)
+		return updateErr
+	case ResourceTypeReplicaSet:
+		client := c.apiClient.AppsV1().ReplicaSets(os.Getenv("NAMESPACE"))
+		res, err := client.Get(resourceName, metav1.GetOptions{})
+		if err != nil {
+			return notFoundErr
+		}
+
+		res.Spec.Replicas = &replicas
+		_, updateErr := client.Update(res)
+		return updateErr
+	}
+
+	return nil
 }
 
 func (c *Client) getDeploymentList() ([]CommonResourceInfo, error) {

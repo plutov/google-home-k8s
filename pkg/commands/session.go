@@ -9,7 +9,7 @@ import (
 // UserSession .
 type UserSession struct {
 	SessionID     string
-	ContextParams interface{}
+	ContextParams map[string]interface{}
 }
 
 // UserSessionManager .
@@ -36,7 +36,8 @@ func (m *UserSessionManager) GetUserSession(req *dialogflow.Request) *UserSessio
 	}
 
 	session := UserSession{
-		SessionID: req.Session,
+		SessionID:     req.Session,
+		ContextParams: make(map[string]interface{}),
 	}
 	m.userSessions[req.Session] = session
 
