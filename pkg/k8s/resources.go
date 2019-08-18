@@ -32,7 +32,7 @@ func (c *Client) ValidateResourceType(resourceType string) (string, error) {
 
 	k8sName, ok := resourceTypes[resourceType]
 	if !ok {
-		return "", fmt.Errorf("%s is invalid resource type. Avilable options are: deployment, statefulset, replicaset", resourceType)
+		return "", fmt.Errorf("%s is invalid resource type. Available options are: deployment, statefulset, replicaset", resourceType)
 	}
 
 	return k8sName, nil

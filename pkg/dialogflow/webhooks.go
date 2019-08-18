@@ -8,7 +8,7 @@ func GenerateWebhookResponse(expectUserResponse bool, msg string) Response {
 				ExpectUserResponse: expectUserResponse,
 				RichResponse: RichResponse{
 					Items: []Item{
-						Item{
+						{
 							SimpleResponse: SimpleResponse{
 								TextToSpeech: msg,
 							},
