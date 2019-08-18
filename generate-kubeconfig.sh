@@ -1,3 +1,4 @@
+#!/bin/bash
 set -eu -o pipefail
 
 # Set OS specific values.
@@ -32,7 +33,6 @@ cat > csr <<EOF
 EOF
 
 cat csr | cfssl genkey - | cfssljson -bare server
-
 
 # Create Kubernetes CSR
 cat <<EOF | kubectl create -f -

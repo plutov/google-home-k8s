@@ -27,7 +27,6 @@ func NewRouter(h *Handler) *echo.Echo {
 		return key == os.Getenv("API_KEY"), nil
 	}))
 
-	e.GET("/", h.dialogflowHandler)
 	e.POST("/", h.dialogflowHandler)
 
 	return e

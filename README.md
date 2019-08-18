@@ -26,6 +26,8 @@ Example conversation:
 
 > Scale deployment "name"
 
+> Scale replicaset "name"
+
 *Contribute to add more voice commands :)*
 
 ## Generate kubeconfig
@@ -52,7 +54,7 @@ Set environment variables in `env.yaml` (`cp env.sample.yaml env.yaml`).
 gcloud app deploy
 ```
 
-Save API URL, you will need to use it later in Dialogflow.
+Save URL, you will need to use it later in Dialogflow.
 
 API deployed to App Engine is protected by static API Key which should be set in `env.yaml`. To access API, client should send `Authorization: Bearer ${API_KEY}` header.
 
