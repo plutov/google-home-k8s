@@ -28,6 +28,8 @@ Example conversation:
 
 > Scale replicaset "name"
 
+> What is the size of the cluster?
+
 *Contribute to add more voice commands :)*
 
 ## Generate kubeconfig

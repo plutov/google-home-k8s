@@ -119,6 +119,12 @@ func (c *Client) ScaleResource(resourceType string, resourceName string, replica
 	return nil
 }
 
+// GetClusterSize .
+func (c *Client) GetClusterSize() (int, error) {
+	nodes, err := c.apiClient.CoreV1().Nodes().List(metav1.ListOptions{})
+	return len(nodes.Items), err
+}
+
 func (c *Client) getDeploymentList() ([]CommonResourceInfo, error) {
 	client := c.apiClient.AppsV1().Deployments(os.Getenv("NAMESPACE"))
 	res, err := client.List(metav1.ListOptions{})

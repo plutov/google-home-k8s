@@ -11,6 +11,8 @@ import (
 const (
 	// ActionMain - when user starts a conversation
 	ActionMain = "main"
+	// ActionClusterSize - ask for cluster size
+	ActionClusterSize = "cluster_size"
 	// ActionScaleReq - action to request statefulset/deployment scale
 	ActionScaleReq = "scale_request"
 	// ActionDoScale - action to do a scale after user provides new replicas count
@@ -19,6 +21,8 @@ const (
 	// MsgWelcome .
 	MsgWelcome = "Welcome to Kubernetes Manager. How can I help you?"
 
+	// ErrorClusterSize .
+	ErrorClusterSize = "Sorry, I wasn't able to get the cluster size."
 	// ErrorScaleRequest .
 	ErrorScaleRequest = "Sorry, I didn't get what exactly do you want to scale. Please try again."
 	// ErrorReplicasNumber .
@@ -37,6 +41,14 @@ func Execute(k8sClient *k8s.Client, session *UserSession, req *dialogflow.Reques
 		session.ContextParams = nil
 
 		return MsgWelcome, nil
+	case ActionClusterSize:
+		size, err := k8sClient.GetClusterSize()
+		if err != nil {
+			return ErrorClusterSize, nil
+		}
+
+		nodesText := formatClusterSize(size)
+		return fmt.Sprintf("Currently %s in your cluster", nodesText), nil
 	case ActionScaleReq:
 		replicas, validateErr := validateScaleRequest(k8sClient, req)
 		if validateErr != nil {
