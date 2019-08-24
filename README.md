@@ -32,6 +32,10 @@ Example conversation:
 
 *Contribute to add more voice commands :)*
 
+## How it works
+
+![diagram](https://raw.githubusercontent.com/plutov/packagemain/master/17-google-home-k8s/diagram.png)
+
 ## Generate kubeconfig
 
 To generate `kubeconfig` you have to install the following tools:
