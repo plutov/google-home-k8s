@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/plutov/google-home-k8s.svg?branch=master)](https://travis-ci.org/plutov/google-home-k8s) [![GoDoc](https://godoc.org/github.com/plutov/google-home-k8s?status.svg)](https://godoc.org/github.com/plutov/google-home-k8s) [![Go Report Card](https://goreportcard.com/badge/github.com/plutov/google-home-k8s)](https://goreportcard.com/report/github.com/plutov/google-home-k8s)
 
+[Demo Video](https://youtu.be/GJz02DrYWag)
+
 # Google Home Action to communicate with Kubernetes
 
 This project allows you to connect your Google Home to your Kubernetes cluster and control it via voice commands. It's not a public Google Home Action, since you have to configure Kubernetes access manually for your cluster.
