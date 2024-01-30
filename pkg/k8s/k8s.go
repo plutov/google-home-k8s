@@ -1,6 +1,7 @@
 package k8s
 
 import (
+	"context"
 	"fmt"
 	"os"
 
@@ -81,38 +82,40 @@ func (c *Client) FindResourceByName(resourceType string, resourceName string) (*
 
 // ScaleResource .
 func (c *Client) ScaleResource(resourceType string, resourceName string, replicas int32) error {
+	ctx := context.Background()
+
 	notFoundErr := fmt.Errorf("%s %s not found", resourceType, resourceName)
 
 	switch resourceType {
 	case ResourceTypeDeployment:
 		client := c.apiClient.AppsV1().Deployments(os.Getenv("NAMESPACE"))
-		res, err := client.Get(resourceName, metav1.GetOptions{})
+		res, err := client.Get(ctx, resourceName, metav1.GetOptions{})
 		if err != nil {
 			return notFoundErr
 		}
 
 		res.Spec.Replicas = &replicas
-		_, updateErr := client.Update(res)
+		_, updateErr := client.Update(ctx, res, metav1.UpdateOptions{})
 		return updateErr
 	case ResourceTypeStatefulSet:
 		client := c.apiClient.AppsV1().StatefulSets(os.Getenv("NAMESPACE"))
-		res, err := client.Get(resourceName, metav1.GetOptions{})
+		res, err := client.Get(ctx, resourceName, metav1.GetOptions{})
 		if err != nil {
 			return notFoundErr
 		}
 
 		res.Spec.Replicas = &replicas
-		_, updateErr := client.Update(res)
+		_, updateErr := client.Update(ctx, res, metav1.UpdateOptions{})
 		return updateErr
 	case ResourceTypeReplicaSet:
 		client := c.apiClient.AppsV1().ReplicaSets(os.Getenv("NAMESPACE"))
-		res, err := client.Get(resourceName, metav1.GetOptions{})
+		res, err := client.Get(ctx, resourceName, metav1.GetOptions{})
 		if err != nil {
 			return notFoundErr
 		}
 
 		res.Spec.Replicas = &replicas
-		_, updateErr := client.Update(res)
+		_, updateErr := client.Update(ctx, res, metav1.UpdateOptions{})
 		return updateErr
 	}
 
@@ -121,13 +124,17 @@ func (c *Client) ScaleResource(resourceType string, resourceName string, replica
 
 // GetClusterSize .
 func (c *Client) GetClusterSize() (int, error) {
-	nodes, err := c.apiClient.CoreV1().Nodes().List(metav1.ListOptions{})
+	ctx := context.Background()
+
+	nodes, err := c.apiClient.CoreV1().Nodes().List(ctx, metav1.ListOptions{})
 	return len(nodes.Items), err
 }
 
 func (c *Client) getDeploymentList() ([]CommonResourceInfo, error) {
+	ctx := context.Background()
+
 	client := c.apiClient.AppsV1().Deployments(os.Getenv("NAMESPACE"))
-	res, err := client.List(metav1.ListOptions{})
+	res, err := client.List(ctx, metav1.ListOptions{})
 	if err != nil {
 		return nil, err
 	}
@@ -144,8 +151,10 @@ func (c *Client) getDeploymentList() ([]CommonResourceInfo, error) {
 }
 
 func (c *Client) getStatefulsetList() ([]CommonResourceInfo, error) {
+	ctx := context.Background()
+
 	client := c.apiClient.AppsV1().StatefulSets(os.Getenv("NAMESPACE"))
-	res, err := client.List(metav1.ListOptions{})
+	res, err := client.List(ctx, metav1.ListOptions{})
 	if err != nil {
 		return nil, err
 	}
@@ -162,8 +171,10 @@ func (c *Client) getStatefulsetList() ([]CommonResourceInfo, error) {
 }
 
 func (c *Client) getRSList() ([]CommonResourceInfo, error) {
+	ctx := context.Background()
+
 	client := c.apiClient.AppsV1().ReplicaSets(os.Getenv("NAMESPACE"))
-	res, err := client.List(metav1.ListOptions{})
+	res, err := client.List(ctx, metav1.ListOptions{})
 	if err != nil {
 		return nil, err
 	}

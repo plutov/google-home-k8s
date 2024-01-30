@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/plutov/google-home-k8s.svg?branch=master)](https://travis-ci.org/plutov/google-home-k8s) [![GoDoc](https://godoc.org/github.com/plutov/google-home-k8s?status.svg)](https://godoc.org/github.com/plutov/google-home-k8s) [![Go Report Card](https://goreportcard.com/badge/github.com/plutov/google-home-k8s)](https://goreportcard.com/report/github.com/plutov/google-home-k8s)
-
 [Demo Video](https://youtu.be/GJz02DrYWag)
 
 # Google Home Action to communicate with Kubernetes
@@ -80,5 +78,5 @@ API deployed to App Engine is protected by static API Key which should be set in
 ## Unit Tests
 
 ```
-GO111MODULE=on go test -mod vendor -race -v ./pkg/...
+go test -race -v ./pkg/...
 ```

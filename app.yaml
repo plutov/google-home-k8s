@@ -1,4 +1,4 @@
-runtime: go111
+runtime: go120
 instance_class: F2
 
 includes:

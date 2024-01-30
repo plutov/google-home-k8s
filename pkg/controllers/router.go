@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/labstack/echo"
-	"github.com/labstack/echo/middleware"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	"github.com/plutov/google-home-k8s/pkg/commands"
 	"github.com/plutov/google-home-k8s/pkg/dialogflow"
 	log "github.com/sirupsen/logrus"
